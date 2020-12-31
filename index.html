@@ -23,6 +23,9 @@
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
     </form>
+    <button class="clear" type="button" value="clear">Clear Tapas</button>
+    <button class="check" type="button" value="check">Check Tapas</button>
+    <button class="uncheck" type="button" value="uncheck">Uncheck Tapas</button>
   </div>
 
 <script>
@@ -68,6 +71,48 @@
   addItems.addEventListener("submit", addItem);
   itemsList.addEventListener("click", toggleDone);
   populateList(items, itemsList);
+
+  //add clear all button
+  const clearItems = document.querySelector('.clear');
+  
+  function clearLocalStorage(e,) {
+    e.preventDefault();
+    localStorage.clear();
+    populateList(items, itemsList);
+    console.log("cleared it!");
+  }
+  
+  clearItems.addEventListener("click", clearLocalStorage);
+  
+  
+  //add check all button
+  const checkItems = document.querySelector('.check');
+  
+  function checkAll(e) {
+    e.preventDefault();
+    items.map(item => {
+      item.done = true;
+    });
+    localStorage.setItem("items", JSON.stringify(items));
+    populateList(items, itemsList);
+    console.log("checked");
+  };
+  
+  checkItems.addEventListener("click", checkAll);
+  
+  //add uncheck all button
+  const uncheckItems = document.querySelector('.uncheck');
+  
+  function uncheckAll(e) {
+    e.preventDefault();
+    items.map(item => {
+      item.done = false;
+    });
+    localStorage.setItem("items", JSON.stringify(items));
+    populateList(items, itemsList);
+  };
+
+  uncheckItems.addEventListener("click", uncheckAll);
   
 </script>
 
